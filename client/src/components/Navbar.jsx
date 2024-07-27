@@ -11,8 +11,8 @@ function Navbar (){
             </div>
             <nav className="text-xl font-semibold text-zinc-200 w-fit">
                 
-                <NavLink to="/categorie" className=" hover:animate-pulse w-6 h-6 mx-4"> item </NavLink>
-                    <NavLink to="/categorie" className=" hover:animate-pulse w-6 h-6"> categorie</NavLink>
+                <NavLink to="/items" className=" hover:animate-pulse w-6 h-6 mx-4"> item </NavLink>
+                    <NavLink to="/categories" className=" hover:animate-pulse w-6 h-6"> categorie</NavLink>
             </nav>
         </header>
         </>

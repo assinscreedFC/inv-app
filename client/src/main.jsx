@@ -7,6 +7,7 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
+import Items from './pages/Items.jsx';
 
 const router = createBrowserRouter([
   {
@@ -14,8 +15,12 @@ const router = createBrowserRouter([
     element: <App/>,
     children:[
       {
-        path: "categorie",
+        path: "categories",
         element: <h3>en aattentte</h3>
+      },
+      {
+        path:"items",
+        element: <Items/>
       }
     ]
   },
