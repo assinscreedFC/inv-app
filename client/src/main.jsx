@@ -26,16 +26,17 @@ const router = createBrowserRouter([
     children:[
       {
         path: "/",
-        element: <Navigate to="/categories" />
+        element: <Navigate to="categories" />
       },
       {
         
         path: "categories",
         element: <Categories/>,
-        children:[{
-          path:"new",
-          element: <CreateCat/>
-        }]
+        
+      },
+      {
+        path:"categories/new",
+        element: <CreateCat/>
       },
       { 
         path:"items",

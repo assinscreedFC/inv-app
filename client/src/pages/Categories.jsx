@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Categorie from "../components/Categorie.jsx"
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Categories(){
     const [br,setbr]=useState([]);
@@ -16,8 +16,8 @@ function Categories(){
 
     return(
         <div className="flex flex-col w-full lg:w-8/12 items-center justify-center gap-2 p-2">
-            <NavLink to="new">New</NavLink>
-           <Outlet/>
+            <NavLink to="../categories/new">New</NavLink>
+           {br}
 
         </div>
     )
