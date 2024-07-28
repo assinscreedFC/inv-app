@@ -12,6 +12,7 @@ import {
 import Items from './pages/Items.jsx';
 import Categories from './pages/Categories.jsx';
 import Carte from './components/Carte.jsx';
+import CreateCat from './components/CreateCat.jsx';
 
 const CarteWrapper = () => {
   const params = useParams();
@@ -30,7 +31,11 @@ const router = createBrowserRouter([
       {
         
         path: "categories",
-        element: <Categories/>
+        element: <Categories/>,
+        children:[{
+          path:"new",
+          element: <CreateCat/>
+        }]
       },
       { 
         path:"items",
