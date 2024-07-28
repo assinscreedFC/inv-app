@@ -37,20 +37,22 @@ setCategories(data);
 
     return (
         <>
-            <form onSubmit={sub}>
-                <div>
-                    <label htmlFor="title">Title:</label>
+            <form onSubmit={sub} className="w-1/2 gap-2 flex flex-col items-center justify-start border-4 border-blue-900 p-4 rounded-md">
+                <div className="w-full flex gap-2 items-center">
+                    <label htmlFor="title" className="font-semibold text-xl">Title:</label>
                     <input
                         type="text"
                         name="title"
+                        className="p-1 rounded-md"
                         id="title"
                         value={title}
                         onChange={e => setTitle(e.target.value)}
                     />
                 </div>
-                <div>
-                    <label htmlFor="unit">Unit:</label>
+                <div className="w-full flex gap-2 items-center">
+                    <label htmlFor="unit" className="font-semibold text-xl">Unit:</label>
                     <input
+                       className="p-1 rounded-md"
                         type="text"
                         name="unit"
                         id="unit"
@@ -58,8 +60,8 @@ setCategories(data);
                         onChange={e => setUnit(e.target.value)}
                     />
                 </div>
-                <div>
-                    <label>Categories:</label>
+                <div className="w-full ">
+                    <label className="font-semibold text-xl">Categories:</label>
                     {categories.map(category => (
                         <div key={category.id}>
                             <input
@@ -73,7 +75,7 @@ setCategories(data);
                         </div>
                     ))}
                 </div>
-                <button type="submit">Send</button>
+                <button type="submit" className="px-4 py-1 my-9 bg-zinc-100 rounded-md ring-green-500 font-semibold text-zinc-950 text-lg ring-offset-2 ring-offset-current ring-2">Send</button>
             </form>
         </>
     );
