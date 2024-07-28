@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import Type from "./Type.jsx"
 
-function Carte(){
+function Carte({val}){
+    console.log(val)
     const [types,settypes]=useState(null);
     const name="Game"
     useEffect(()=>{

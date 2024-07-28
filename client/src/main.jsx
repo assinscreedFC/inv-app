@@ -5,9 +5,18 @@ import './index.css'
 import {
   createBrowserRouter,
   Outlet,
+  useParams,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
 import Items from './pages/Items.jsx';
+import Categories from './pages/Categories.jsx';
+import Carte from './components/Carte.jsx';
+
+const CarteWrapper = () => {
+  const params = useParams();
+  return <Carte val={params.name} />;
+};
 
 const router = createBrowserRouter([
   {
@@ -15,12 +24,24 @@ const router = createBrowserRouter([
     element: <App/>,
     children:[
       {
-        path: "categories",
-        element: <h3>en aattentte</h3>
+        path: "/",
+        element: <Navigate to="/categories" />
       },
       {
+        
+        path: "categories",
+        element: <Categories/>
+      },
+      { 
         path:"items",
-        element: <Items/>
+        element: <Items/>,
+        children:[
+          {
+            path:":name",
+            element: <CarteWrapper/>
+          }
+          
+        ]
       }
     ]
   },
