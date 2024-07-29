@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 
 function CreateIte() {
     const [title, setTitle] = useState("");
@@ -32,12 +32,13 @@ setCategories(data);
     };
 
     if (redirect) {
-        return <Navigate to="/item" />;
+        return <Navigate to="../items" />;
     }
 
     return (
         <>
-            <form onSubmit={sub} className="w-1/2 gap-2 flex flex-col items-center justify-start border-4 border-blue-900 p-4 rounded-md">
+            <form onSubmit={sub} className="w-1/2 gap-4 flex flex-col items-center justify-start border-4 border-blue-900 p-4 rounded-md">
+                <NavLink to="../items" className="w-full flex justify-center items-center font-semibold text-xl "> Return </NavLink>        
                 <div className="w-full flex gap-2 items-center">
                     <label htmlFor="title" className="font-semibold text-xl">Title:</label>
                     <input
