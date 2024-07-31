@@ -7,7 +7,7 @@ function Items(){
     const{bdd}=useContext(BddContext);
     
     useEffect(()=>{
-        let tt=bdd[1].map(Element=><Carte val={Element}/> )
+        // let tt=bdd[1].map(Element=><Carte val={Element}/> )
 
     },[])
     return (

@@ -4,19 +4,18 @@ import axios from "axios";
 import { BddContext } from "../App.jsx";
 
 function CreateIte() {
-    const {bdd}=useContext(BddContext)
+    const { bdd, setBdd } = useContext(BddContext);
     const [title, setTitle] = useState("");
     const [unit, setUnit] = useState("");
+    const [description, setDescription] = useState(""); 
     const [categories, setCategories] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        // Simuler la récupération des catégories de la base de données
-
-setCategories(bdd[0]);
-
-    }, []);
+      
+        setCategories(bdd[0]);
+    }, [bdd]);
 
     const handleCheckboxChange = (categoryId) => {
         setSelectedCategories(prevSelected =>
@@ -30,20 +29,20 @@ setCategories(bdd[0]);
         e.preventDefault();
         console.log("Title:", title);
         console.log("Unit:", unit);
+        console.log("Description:", description); 
         console.log("Selected Categories:", selectedCategories);
-       
 
-        try {      
-        
-        
-            const req = await axios.post("/api/items/new", { name: val }, {
+        try {
+            const reqData = { title, unit, des: description, categories: selectedCategories };
+            
+            const req = await axios.post("/api/items/nw", reqData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
 
 
-            tab[0].push(req.data);
+            tab[1].push(req.data);
             setBdd(tab)
             console.log(tab);
             setRedirect(true)
@@ -63,8 +62,8 @@ setCategories(bdd[0]);
         <>
             <form onSubmit={sub} className="w-11/12 md:w-fit
              md:px-20 md:py-8 bg-white/5 gap-4 flex flex-col items-center justify-start border-4 border-blue-900 py-8 text-white rounded-md">
-                <NavLink to="../items" className="px-4 py-1 rounded-md ring-green-600 ring-4 text-slate-50 flex justify-center items-center font-semibold text-xl bg-slate-800 "> Return </NavLink>        
-                <div className="w-full flex justify-center gap-2 items-center ">
+                <NavLink to="../items" className="px-4 py-1 rounded-md ring-green-600 ring-4 text-slate-50 flex justify-center items-center font-semibold text-xl bg-slate-800"> Return </NavLink>        
+                <div className="w-full flex justify-center gap-2 items-center">
                     <label htmlFor="title" className="font-semibold text-xl">Title:</label>
                     <input
                         type="text"
@@ -78,7 +77,7 @@ setCategories(bdd[0]);
                 <div className="w-full justify-center flex gap-2 items-center">
                     <label htmlFor="unit" className="font-semibold text-xl">Unit:</label>
                     <input
-                       className="peer text-black bg-transparent outline-none px-2 text-base rounded-xl bg-white border-[3px] border-[#4070f4] focus:shadow-md py-[2px]"
+                        className="peer text-black bg-transparent outline-none px-2 text-base rounded-xl bg-white border-[3px] border-[#4070f4] focus:shadow-md py-[2px]"
                         type="text"
                         name="unit"
                         id="unit"
@@ -86,24 +85,34 @@ setCategories(bdd[0]);
                         onChange={e => setUnit(e.target.value)}
                     />
                 </div>
-                <div className="w-fit gap-2 flex flex-col items-center ">
+                <div className="w-full justify-center flex gap-2 items-center">
+                    <label htmlFor="description" className="font-semibold text-xl">Desc:</label>
+                    <input
+                        className="peer text-black bg-transparent outline-none px-2 text-base rounded-xl bg-white border-[3px] border-[#4070f4] focus:shadow-md py-[2px]"
+                        type="text"
+                        name="description"
+                        id="description"
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                    />
+                </div>
+                <div className="w-fit gap-2 flex flex-col items-center">
                     <label className="font-semibold text-xl">Categories:</label>
                     <div className="w-full">
-                         {categories.map(category => (
-                        <div key={category.id} className="flex gap-2 font-semibold">
-                            <input
-                                type="checkbox"
-                                id={`category-${category.id}`}
-                                name="categories"
-                                value={category.name}
-                                className="w-4"
-                                onChange={() => handleCheckboxChange(category)}
-                            />
-                            <label htmlFor={`category-${category.id}`}>{category.name}</label>
-                        </div>
-                    ))}
+                        {categories.map(category => (
+                            <div key={category.id} className="flex gap-2 font-semibold">
+                                <input
+                                    type="checkbox"
+                                    id={`category-${category.id}`}
+                                    name="categories"
+                                    value={category.name}
+                                    className="w-4"
+                                    onChange={() => handleCheckboxChange(category.id)}
+                                />
+                                <label htmlFor={`category-${category.id}`}>{category.name}</label>
+                            </div>
+                        ))}
                     </div>
-                   
                 </div>
                 <button type="submit" className="px-4 py-1 rounded-md ring-green-600 ring-4 text-slate-50 flex justify-center items-center font-semibold text-xl bg-slate-800 my-2">Send</button>
             </form>
