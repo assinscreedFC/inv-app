@@ -1,17 +1,38 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate, NavLink } from "react-router-dom";
+import axios from "axios"
+import { BddContext } from "../App.jsx";
 
 function CreateCat() {
+    const {bdd,setBdd}=useContext(BddContext);
     const [val, setVal] = useState("");
     const [redirect, setRedirect] = useState(false);
 
-    const sub = (e) => {
+    const sub = async (e) => {
+        const tab=bdd;
         e.preventDefault();
-        console.log(val);
-        setRedirect(true);
+        
+        try {      
+            
+            
+            const req = await axios.post("/api/categories/new", { name: val }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+
+            tab[0].push(req.data);
+            setBdd(tab)
+            console.log(tab);
+            setRedirect(true)
+        } catch (error) {
+            console.error('Error posting new category', error);
+        }
     };
+    
 
     if (redirect) {
+        
         return <Navigate to="/categories" />;
     }
 
