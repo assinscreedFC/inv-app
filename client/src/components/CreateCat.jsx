@@ -2,9 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { Navigate, NavLink } from "react-router-dom";
 import axios from "axios"
 import { BddContext } from "../App.jsx";
+import { toast } from 'sonner';
+
 
 function CreateCat() {
-    const {bdd,setBdd}=useContext(BddContext);
+    const {bdd,setBdd} = useContext(BddContext);
     const [val, setVal] = useState("");
     const [redirect, setRedirect] = useState(false);
 
@@ -13,18 +15,28 @@ function CreateCat() {
         e.preventDefault();
         
         try {      
-            
-            
+            const lowerCaseVal = val.toLowerCase();
+        
+        const categoryExists = bdd[0].some(category => category.name === lowerCaseVal);
+
+        if (!categoryExists) {
             const req = await axios.post("/api/categories/new", { name: val }, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            })
+            });
+
 
             tab[0].push(req.data);
             setBdd(tab)
             console.log(tab);
             setRedirect(true)
+            }else{
+                toast.error("cette entrer existe deja dans la bdd")
+             
+                
+            }
+           
         } catch (error) {
             console.error('Error posting new category', error);
         }

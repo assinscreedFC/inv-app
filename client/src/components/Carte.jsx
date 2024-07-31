@@ -21,9 +21,9 @@ function Carte({val}){
                 <p className="text-lg font-semibold">|</p>
                 <button>Delete</button>
             </div>
-            <h1>Name</h1>
-            <h3>Units: 1</h3>
-            <h3>Desscription</h3>
+            <h1>{val.name}</h1>
+            <h3>{val.units}: 1</h3>
+            <h3>{val.des}</h3>
             <div className="flex gap-2 flex-wrap">
                  {types}
             </div>

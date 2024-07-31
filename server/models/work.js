@@ -10,6 +10,16 @@ const Postcategorie= async (req,res)=>{
           }
    
 }
+const postItems= async (req,res)=>{
+    try{
+        const {name,units,des,categories}=req.body;
+    const postitem = await client.query
+    res.status(201).json(postitem.rows[0]);
+    }catch (err) {
+        console.error('Error inserting category', err);
+      }
+    
+}
 const GetTableCat= async (req,res)=>{
     const rid= await client.query("SELECT * FROM categories");
     res.send(rid);
@@ -23,4 +33,5 @@ module.exports={
     Postcategorie,
     GetTableCat,
     GetTableItem,
+    postItems,
 }

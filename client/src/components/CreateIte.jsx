@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect ,useContext} from "react";
 import { Navigate, NavLink } from "react-router-dom";
+import axios from "axios";
+import { BddContext } from "../App.jsx";
 
 function CreateIte() {
+    const {bdd}=useContext(BddContext)
     const [title, setTitle] = useState("");
     const [unit, setUnit] = useState("");
     const [categories, setCategories] = useState([]);
@@ -10,8 +13,8 @@ function CreateIte() {
 
     useEffect(() => {
         // Simuler la récupération des catégories de la base de données
-const data=["anis","yanis" ,"sabrina"];
-setCategories(data);
+
+setCategories(bdd[0]);
 
     }, []);
 
@@ -23,12 +26,33 @@ setCategories(data);
         );
     };
 
-    const sub = (e) => {
+    const sub = async (e) => {
         e.preventDefault();
         console.log("Title:", title);
         console.log("Unit:", unit);
         console.log("Selected Categories:", selectedCategories);
-        setRedirect(true);
+       
+
+        try {      
+        
+        
+            const req = await axios.post("/api/items/new", { name: val }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+
+            tab[0].push(req.data);
+            setBdd(tab)
+            console.log(tab);
+            setRedirect(true)
+           
+           
+        } catch (error) {
+            console.error('Error posting new category', error);
+        }
+
     };
 
     if (redirect) {
@@ -69,13 +93,13 @@ setCategories(data);
                         <div key={category.id} className="flex gap-2 font-semibold">
                             <input
                                 type="checkbox"
-                                id={`category-${category}`}
+                                id={`category-${category.id}`}
                                 name="categories"
-                                value={category}
+                                value={category.name}
                                 className="w-4"
                                 onChange={() => handleCheckboxChange(category)}
                             />
-                            <label htmlFor={`category-${category}`}>{category}</label>
+                            <label htmlFor={`category-${category.id}`}>{category.name}</label>
                         </div>
                     ))}
                     </div>

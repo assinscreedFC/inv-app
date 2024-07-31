@@ -6,6 +6,7 @@ import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import axios from 'axios';
 import { useEffect, createContext, useState } from 'react';
+import { Toaster } from 'sonner';
 
 const BddContext = createContext();
 
@@ -35,8 +36,9 @@ function App() {
         <Navbar />
         <BddContext.Provider value={{bdd,setBdd}}>
         <Outlet /> 
-         </BddContext.Provider>
+         </BddContext.Provider><Toaster />
         <Footer />
+        
       </div>
   
   );
