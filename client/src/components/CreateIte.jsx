@@ -27,22 +27,26 @@ function CreateIte() {
 
     const sub = async (e) => {
         e.preventDefault();
+        
+        console.log(typeof(parseInt(unit)));
         console.log("Title:", title);
         console.log("Unit:", unit);
         console.log("Description:", description); 
         console.log("Selected Categories:", selectedCategories);
 
         try {
-            const reqData = { title, unit, des: description, categories: selectedCategories };
-            
-            const req = await axios.post("/api/items/nw", reqData, {
+            let tab=bdd;
+            const te=parseInt(unit);
+            const reqData = { title,units: te , des: description, categories: selectedCategories };
+            console.log(reqData);
+            const req = await axios.post("/api/items/new", reqData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
 
 
-            tab[1].push(req.data);
+            tab[1].push(reqData);
             setBdd(tab)
             console.log(tab);
             setRedirect(true)
@@ -51,7 +55,6 @@ function CreateIte() {
         } catch (error) {
             console.error('Error posting new category', error);
         }
-
     };
 
     if (redirect) {
@@ -78,7 +81,8 @@ function CreateIte() {
                     <label htmlFor="unit" className="font-semibold text-xl">Unit:</label>
                     <input
                         className="peer text-black bg-transparent outline-none px-2 text-base rounded-xl bg-white border-[3px] border-[#4070f4] focus:shadow-md py-[2px]"
-                        type="text"
+                        type="number"
+                        min="0"
                         name="unit"
                         id="unit"
                         value={unit}

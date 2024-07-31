@@ -12,9 +12,13 @@ const Postcategorie= async (req,res)=>{
 }
 const postItems= async (req,res)=>{
     try{
-        const {name,units,des,categories}=req.body;
-    const postitem = await client.query
-    res.status(201).json(postitem.rows[0]);
+        const { title, units, des, categories }=req.body;
+        const result = await client.query(
+            `INSERT INTO items (title, units, description,categories_id) 
+             VALUES ($1, $2, $3, $4) RETURNING *`,
+            [title, units, des,categories]
+        );
+    res.status(201).json(result.rows[0]);
     }catch (err) {
         console.error('Error inserting category', err);
       }
