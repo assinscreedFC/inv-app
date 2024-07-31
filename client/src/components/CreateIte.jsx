@@ -37,23 +37,24 @@ setCategories(data);
 
     return (
         <>
-            <form onSubmit={sub} className="w-1/2 gap-4 flex flex-col items-center justify-start border-4 border-blue-900 p-4 rounded-md">
-                <NavLink to="../items" className="w-full flex justify-center items-center font-semibold text-xl "> Return </NavLink>        
-                <div className="w-full flex gap-2 items-center">
+            <form onSubmit={sub} className="w-11/12 md:w-fit
+             md:px-20 md:py-8 bg-white/5 gap-4 flex flex-col items-center justify-start border-4 border-blue-900 py-8 text-white rounded-md">
+                <NavLink to="../items" className="px-4 py-1 rounded-md ring-green-600 ring-4 text-slate-50 flex justify-center items-center font-semibold text-xl bg-slate-800 "> Return </NavLink>        
+                <div className="w-full flex justify-center gap-2 items-center ">
                     <label htmlFor="title" className="font-semibold text-xl">Title:</label>
                     <input
                         type="text"
                         name="title"
-                        className="p-1 rounded-md"
+                        className="peer text-black bg-transparent outline-none px-2 text-base rounded-xl bg-white border-[3px] border-[#4070f4] focus:shadow-md py-[2px]"
                         id="title"
                         value={title}
                         onChange={e => setTitle(e.target.value)}
                     />
                 </div>
-                <div className="w-full flex gap-2 items-center">
+                <div className="w-full justify-center flex gap-2 items-center">
                     <label htmlFor="unit" className="font-semibold text-xl">Unit:</label>
                     <input
-                       className="p-1 rounded-md"
+                       className="peer text-black bg-transparent outline-none px-2 text-base rounded-xl bg-white border-[3px] border-[#4070f4] focus:shadow-md py-[2px]"
                         type="text"
                         name="unit"
                         id="unit"
@@ -61,22 +62,26 @@ setCategories(data);
                         onChange={e => setUnit(e.target.value)}
                     />
                 </div>
-                <div className="w-full ">
+                <div className="w-fit gap-2 flex flex-col items-center ">
                     <label className="font-semibold text-xl">Categories:</label>
-                    {categories.map(category => (
-                        <div key={category.id}>
+                    <div className="w-full">
+                         {categories.map(category => (
+                        <div key={category.id} className="flex gap-2 font-semibold">
                             <input
                                 type="checkbox"
-                                id={`category-${category.id}`}
+                                id={`category-${category}`}
                                 name="categories"
-                                value={category.id}
-                                onChange={() => handleCheckboxChange(category.id)}
+                                value={category}
+                                className="w-4"
+                                onChange={() => handleCheckboxChange(category)}
                             />
-                            <label htmlFor={`category-${category.id}`}>{category.name}</label>
+                            <label htmlFor={`category-${category}`}>{category}</label>
                         </div>
                     ))}
+                    </div>
+                   
                 </div>
-                <button type="submit" className="px-4 py-1 my-9 bg-zinc-100 rounded-md ring-green-500 font-semibold text-zinc-950 text-lg ring-offset-2 ring-offset-current ring-2">Send</button>
+                <button type="submit" className="px-4 py-1 rounded-md ring-green-600 ring-4 text-slate-50 flex justify-center items-center font-semibold text-xl bg-slate-800 my-2">Send</button>
             </form>
         </>
     );

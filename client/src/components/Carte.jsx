@@ -15,7 +15,7 @@ function Carte({val}){
         settypes(conv);
     },[])
     return(
-        <div className="  md:w-[32%]  bg-zinc-200 rounded-md p-2 flex flex-col gap-1 ">
+        <div className=" lg:w-[32%]  bg-zinc-200 rounded-md p-2 flex flex-col gap-1 m-2 ">
             <div className="w-full flex justify-end gap-2">
                 <button> EDIT</button>
                 <p className="text-lg font-semibold">|</p>

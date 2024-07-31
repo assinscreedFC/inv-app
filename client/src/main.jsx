@@ -17,7 +17,8 @@ import CreateIte from './components/CreateIte.jsx';
 
 const CarteWrapper = () => {
   const params = useParams();
-  return <Carte val={params.name} />;
+  let tab=[<Carte val={params.name} />,<Carte val={params.name} />,<Carte val={params.name} />]
+  return tab
 };
 
 const router = createBrowserRouter([
