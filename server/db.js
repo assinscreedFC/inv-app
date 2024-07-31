@@ -11,7 +11,7 @@ const client = new Client({
 });
 
 client.connect()
-  .then(() => console.log('Connected to PostgreSQL database'))
+  .then(() => console.log(client.database))
   .catch(err => console.error('Connection error', err.stack));
 
 module.exports = client;
