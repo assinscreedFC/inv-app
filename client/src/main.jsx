@@ -15,6 +15,7 @@ import Carte from './components/Carte.jsx';
 import CreateCat from './components/CreateCat.jsx';
 import CreateIte from './components/CreateIte.jsx';
 import EditeIte from './components/EditeIte.jsx';
+import Delete from './components/Delete.jsx';
 
 
 
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
       {
         path: "items/edit",
         element: <EditeIte/>
+        
+      },
+      {
+        path: "items/delete",
+        element: <Delete/>
         
       },
       { 

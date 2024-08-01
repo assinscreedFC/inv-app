@@ -40,7 +40,10 @@ function Carte({ val, ite }) {
                     state= {{data : val}}
                 >EDIT</NavLink>
                 <p className="text-lg font-semibold">|</p>
-                <button onClick={handleDelete}>Delete</button>
+
+               <NavLink to="items/delete"
+                    state= {{data : val}}
+                >DELETE</NavLink>
             </div>
             <h1>title: {val.title}</h1>
             <h3>units: {val.units}</h3>

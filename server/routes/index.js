@@ -15,7 +15,7 @@ router.get("/table/items",GetTableItem);
 
 router.post("/items/new",postItems);
 
-router.delete("/items/delete/:id",deleteitem)
+router.delete("/items/delete/:id/:pas",deleteitem)
 
 router.patch("/items/update",updateItems)
 
