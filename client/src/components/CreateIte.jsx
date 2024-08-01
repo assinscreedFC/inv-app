@@ -15,7 +15,7 @@ function CreateIte() {
     useEffect(() => {
       
         setCategories(bdd[0]);
-    }, [bdd]);
+    }, []);
 
     const handleCheckboxChange = (categoryId) => {
         setSelectedCategories(prevSelected =>

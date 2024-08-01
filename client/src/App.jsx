@@ -5,13 +5,19 @@ import './App.css';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import axios from 'axios';
-import { useEffect, createContext, useState } from 'react';
+import { useEffect, createContext, useState ,useContext} from 'react';
 import { Toaster } from 'sonner';
 
 const BddContext = createContext();
 
+
+
+
+
 function App() {
   const [bdd, setBdd] = useState([]);
+
+  
 
   useEffect(() => {
     const fetchData = async () => {

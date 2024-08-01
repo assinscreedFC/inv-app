@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -15,11 +15,7 @@ import Carte from './components/Carte.jsx';
 import CreateCat from './components/CreateCat.jsx';
 import CreateIte from './components/CreateIte.jsx';
 
-const CarteWrapper = () => {
-  const params = useParams();
-  let tab=[<Carte val={params.name} />,<Carte val={params.name} />,<Carte val={params.name} />]
-  return tab
-};
+
 
 const router = createBrowserRouter([
   {
@@ -50,7 +46,7 @@ const router = createBrowserRouter([
         children:[
           {
             path:":name",
-            element: <CarteWrapper/>
+            element: <h1>adda</h1>
           }
           
         ]
