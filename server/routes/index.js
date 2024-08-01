@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const {Postcategorie,GetTableCat,GetTableItem, postItems, deleteitem}=require("../models/work.js")
+const {Postcategorie,GetTableCat,GetTableItem,updateItems, postItems, deleteitem}=require("../models/work.js")
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -16,5 +16,7 @@ router.get("/table/items",GetTableItem);
 router.post("/items/new",postItems);
 
 router.delete("/items/delete/:id",deleteitem)
+
+router.patch("/items/update",updateItems)
 
 module.exports = router;

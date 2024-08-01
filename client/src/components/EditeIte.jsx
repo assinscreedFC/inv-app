@@ -1,20 +1,43 @@
 import { useState, useEffect ,useContext} from "react";
-import { Navigate, NavLink } from "react-router-dom";
+import { Navigate, NavLink,useLocation  } from "react-router-dom";
 import axios from "axios";
 import { BddContext } from "../App.jsx";
 
-function CreateIte() {
+
+
+function EditeIte() {
+    
+    const location = useLocation();
+    const { data } = location.state || {};
     const { bdd, setBdd } = useContext(BddContext);
-    const [title, setTitle] = useState("");
-    const [unit, setUnit] = useState("");
-    const [description, setDescription] = useState(""); 
+    const [title, setTitle] = useState(data.title);
+    const [unit, setUnit] = useState(data.units);
+    const [description, setDescription] = useState(data.description); 
     const [categories, setCategories] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [redirect, setRedirect] = useState(false);
-
+    
     useEffect(() => {
-      
-        setCategories(bdd[0]);
+         console.log(data);
+         //recuperer les categorie cheked
+         if (bdd.length > 0) {
+            let tab=[];
+            
+            const bdd_cat=bdd[0];
+            
+            const data_catid=data.categories_id;
+            bdd_cat.forEach((el)=>{
+               
+                data_catid.forEach(dz=>{
+                    if(el.id===dz){
+                        tab.push(el)
+                    }
+                })
+            })
+            const br=tab.map(el=>el.id)
+            console.log(br)
+            setSelectedCategories(br)
+            setCategories(bdd[0]);}
     }, []);
 
     const handleCheckboxChange = (categoryId) => {
@@ -37,17 +60,21 @@ function CreateIte() {
         try {
             let tab=bdd;
             const te=parseInt(unit);
-            const reqData = { title,units: te , des: description, categories: selectedCategories };
+            const reqData = { title,units: te , des: description, categories: selectedCategories,id: data.id };
             console.log(reqData);
-            const req = await axios.post("/api/items/new", reqData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+            const req = await axios.patch("/api/items/update", reqData);
+            console.log(req.data);
+            const updatedItem=req.data;
+            console.log(updatedItem)
+          
+            const updatedBdd = bdd.map((item, index) => {
+                if (index === 1) {
+                    return item.map(el => (el.id === updatedItem.id ? updatedItem : el));
+                }
+                return item;
             });
 
-            console.log(req);
-            tab[1].push(req.data);
-            setBdd(tab)
+            setBdd(updatedBdd);
             console.log(tab);
             setRedirect(true)
            
@@ -111,6 +138,7 @@ function CreateIte() {
                                     name="categories"
                                     value={category.name}
                                     className="w-4"
+                                    checked={selectedCategories.includes(category.id)}
                                     onChange={() => handleCheckboxChange(category.id)}
                                 />
                                 <label htmlFor={`category-${category.id}`}>{category.name}</label>
@@ -118,10 +146,10 @@ function CreateIte() {
                         ))}
                     </div>
                 </div>
-                <button type="submit" className="px-4 py-1 rounded-md ring-green-600 ring-4 text-slate-50 flex justify-center items-center font-semibold text-xl bg-slate-800 my-2">Send</button>
+                <button type="submit" className="px-4 py-1 rounded-md ring-green-600 ring-4 text-slate-50 flex justify-center items-center font-semibold text-xl bg-slate-800 my-2">Update</button>
             </form>
         </>
     );
 }
 
-export default CreateIte;
+export default EditeIte;

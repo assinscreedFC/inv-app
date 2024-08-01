@@ -14,6 +14,7 @@ import Categories from './pages/Categories.jsx';
 import Carte from './components/Carte.jsx';
 import CreateCat from './components/CreateCat.jsx';
 import CreateIte from './components/CreateIte.jsx';
+import EditeIte from './components/EditeIte.jsx';
 
 
 
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
       {
         path:"items/new",
         element: <CreateIte/>
+      },
+      {
+        path: "items/edit",
+        element: <EditeIte/>
+        
       },
       { 
         path:"items",

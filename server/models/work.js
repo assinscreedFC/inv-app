@@ -50,10 +50,32 @@ const deleteitem=async (req, res) => {
     }
   }
 
+  const updateItems = async (req, res) => {
+    try {
+      const { id, title, units, des, categories } = req.body;
+      console.log(req.body)
+      
+      const query = `
+        UPDATE items 
+        SET title = $1, units = $2, description = $3, categories_id = $4 
+        WHERE id = $5 
+        RETURNING *;
+      `;
+      
+      const values = [title, units, des, categories, id];
+      const result = await client.query(query, values);
+      console.log(result)
+      res.status(200).json(result.rows[0]);
+    } catch (err) {
+      console.error('Error updating item', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+
 module.exports={
     Postcategorie,
     GetTableCat,
     GetTableItem,
-    postItems,
+    postItems,updateItems,
     deleteitem
 }

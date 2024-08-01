@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Type from "./Type.jsx";
 import { BddContext } from "../App.jsx";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 function Carte({ val, ite }) {
     const { bdd ,setBdd} = useContext(BddContext);
@@ -34,8 +35,10 @@ function Carte({ val, ite }) {
 
     return (
         <div className="w-[45%] md:w-[31%] bg-zinc-200 rounded-md p-2 flex flex-col gap-1 m-2">
-            <div className="w-full flex justify-end gap-2">
-                <button>EDIT</button>
+            <div className="w-full flex justify-end items-center gap-2">
+                <NavLink to="/items/edit"
+                    state= {{data : val}}
+                >EDIT</NavLink>
                 <p className="text-lg font-semibold">|</p>
                 <button onClick={handleDelete}>Delete</button>
             </div>
