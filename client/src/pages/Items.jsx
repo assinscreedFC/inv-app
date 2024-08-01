@@ -1,12 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { NavLink , useParams} from "react-router-dom";
 import Carte from "../components/Carte.jsx";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BddContext } from "../App.jsx";
 
+
 function Items() {
   const {bdd,setbdd}=useContext(BddContext);
   const [rr, setRr] = useState([]);
+  const { name } = useParams();
+  
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -27,12 +30,20 @@ function Items() {
   useEffect(() => {
     if (bdd.length > 0) {
       const items = bdd[1];
-      const itemComponents = items.map(el => (
+      let filteredItems = items;
+
+      if (name) {
+        const categoryIds = bdd[0].filter(cat => cat.name === name).map(cat => cat.id);
+        filteredItems = items.filter(item => item.categories_id.some(catId => categoryIds.includes(catId)));
+      }
+
+      const itemComponents = filteredItems.map(el => (
         <Carte key={el.id} val={el} ite={el.categories_id} />
       ));
+
       setRr(itemComponents);
     }
-  }, [bdd]);
+  }, [bdd, name]);
 
   return (
     <div className="flex flex-col lg:w-full items-center gap-4">
