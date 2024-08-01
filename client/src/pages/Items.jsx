@@ -1,28 +1,28 @@
 import { NavLink } from "react-router-dom";
 import Carte from "../components/Carte.jsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BddContext } from "../App.jsx";
 
 function Items() {
-  const [bdd, setBdd] = useState([]);
+  const {bdd,setbdd}=useContext(BddContext);
   const [rr, setRr] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [Cat, Item] = await Promise.all([
-          axios.get("/api/table/categories"),
-          axios.get("/api/table/items"),
-        ]);
-        console.log(Item.data.rows);
-        setBdd([Cat.data.rows, Item.data.rows]);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const [Cat, Item] = await Promise.all([
+  //         axios.get("/api/table/categories"),
+  //         axios.get("/api/table/items"),
+  //       ]);
+  //       console.log(Item.data.rows);
+  //       setBdd([Cat.data.rows, Item.data.rows]);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     if (bdd.length > 0) {

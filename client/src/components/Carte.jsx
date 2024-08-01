@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import Type from "./Type.jsx";
 import { BddContext } from "../App.jsx";
+import axios from "axios";
 
 function Carte({ val, ite }) {
-    const { bdd } = useContext(BddContext);
+    const { bdd ,setBdd} = useContext(BddContext);
     const [types, setTypes] = useState(null);
 
     useEffect(() => {
@@ -18,12 +19,25 @@ function Carte({ val, ite }) {
         }
     }, [bdd, ite]);
 
+    const handleDelete = async () => {
+        try {
+            const res = await axios.delete(`/api/items/delete/${val.id}`);
+            console.log(res.data);
+
+            // Filter out the deleted item from the state
+            const updatedItems = bdd[1].filter(item => item.id !== val.id);
+            setBdd([bdd[0], updatedItems]);
+        } catch (error) {
+            console.error('Error deleting item:', error);
+        }
+    };
+
     return (
-        <div className="lg:w-[32%] bg-zinc-200 rounded-md p-2 flex flex-col gap-1 m-2">
+        <div className="w-[45%] md:w-[31%] bg-zinc-200 rounded-md p-2 flex flex-col gap-1 m-2">
             <div className="w-full flex justify-end gap-2">
                 <button>EDIT</button>
                 <p className="text-lg font-semibold">|</p>
-                <button>Delete</button>
+                <button onClick={handleDelete}>Delete</button>
             </div>
             <h1>title: {val.title}</h1>
             <h3>units: {val.units}</h3>
