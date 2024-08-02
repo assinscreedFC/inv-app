@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { BddContext } from "../App.jsx";
 
 function Delete() {
+    //flemme de desactiver les btn dans le delete de la carte
     const location = useLocation();
     const navigate = useNavigate();
     const { data } = location.state || {};
