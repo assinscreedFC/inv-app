@@ -43,23 +43,26 @@ const router = createBrowserRouter([
         element: <CreateIte/>
       },
       {
-        path: "items/edit",
-        element: <EditeIte/>
-        
-      },
-      {
-        path: "items/delete",
+        path: "delete",
         element: <Delete/>
         
       },
+     
       { 
         path:"items",
         element: <Items/>,
         children:[
           {
+            path: "items/delete",
+            element: <Delete/>
+            
+          },
+          {
             path:":name",
             element: <h1>adda</h1>
           }
+          
+
           
         ]
       }

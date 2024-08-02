@@ -11,21 +11,6 @@ function Items() {
   const { name } = useParams();
   
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const [Cat, Item] = await Promise.all([
-  //         axios.get("/api/table/categories"),
-  //         axios.get("/api/table/items"),
-  //       ]);
-  //       console.log(Item.data.rows);
-  //       setBdd([Cat.data.rows, Item.data.rows]);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
 
   useEffect(() => {
     if (bdd.length > 0) {

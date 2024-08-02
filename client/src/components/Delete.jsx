@@ -2,13 +2,15 @@ import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Carte from "./Carte.jsx";
+import { toast } from 'sonner';
 import { BddContext } from "../App.jsx";
 
 function Delete() {
     const location = useLocation();
-   
+    const navigate = useNavigate();
     const { data } = location.state || {};
     const [password, setPassword] = useState("");
+    const [isPasswordIncorrect, setIsPasswordIncorrect] = useState(false);
     const { bdd, setBdd } = useContext(BddContext);
 
     const sub = async (e) => {
@@ -16,12 +18,17 @@ function Delete() {
         try {
             const res = await axios.delete(`/api/items/delete/${data.id}/${password}`);
             console.log(res);
-
-            // Filtrer l'élément supprimé de l'état
-            // const updatedItems = bdd[1].filter(item => item.id !== data.id);
-            // setBdd([bdd[0], updatedItems]);
-            // navigate("../items");
+            if (res.status === 200) {
+                // Filtrer l'élément supprimé de l'état
+                const updatedItems = bdd[1].filter(item => item.id !== data.id);
+                setBdd([bdd[0], updatedItems]);
+                navigate("../items"); // Navigate to the correct route
+            }
+               
+            
         } catch (error) {
+            setIsPasswordIncorrect(true);
+            toast.error("Mot de passe incorrect");
             console.error('Error deleting item:', error);
         }
     };
@@ -37,14 +44,18 @@ function Delete() {
                             <input
                                 type="password"
                                 name="password"
-                                className="peer w-full md:w-[35%] text-black bg-transparent outline-none px-2 text-base rounded-xl bg-white border-[3px] border-[#4070f4] focus:shadow-md py-[2px]"
+                                className={`peer w-full md:w-[35%] text-black bg-transparent outline-none px-2 text-base rounded-xl bg-white border-[3px] ${isPasswordIncorrect ? 'border-red-500' : 'border-[#4070f4]'} focus:shadow-md py-[2px]`}
                                 id="password"
                                 value={password}
-                                onChange={e => setPassword(e.target.value)}
+                                onChange={e => {
+                                    setPassword(e.target.value);
+                                    setIsPasswordIncorrect(false);
+                                }}
                             />
                         </div>
-                        <div className="w-full items-center justify-end flex mt-4 px-2">
-                            <button className="px-4 py-1 rounded-md ring-green-600 ring-4 text-slate-50 flex justify-center items-center font-semibold text-xl bg-slate-800 my-2">Delete</button>
+                        <div className="w-full items-center justify-between flex mt-4 px-2">
+                        <button type="button"  className="px-4 py-1 rounded-md ring-green-600 ring-4 text-slate-50 flex justify-center items-center font-semibold text-xl bg-slate-800 my-2" onClick={()=>navigate("../items")}>Return</button>
+                            <button type="submit" className="px-4 py-1 rounded-md ring-green-600 ring-4 text-slate-50 flex justify-center items-center font-semibold text-xl bg-slate-800 my-2">Delete</button>
                         </div>
                     </form>
                 </div>

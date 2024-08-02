@@ -41,7 +41,7 @@ function Carte({ val, ite }) {
                 >EDIT</NavLink>
                 <p className="text-lg font-semibold">|</p>
 
-               <NavLink to="items/delete"
+               <NavLink to="/delete"
                     state= {{data : val}}
                 >DELETE</NavLink>
             </div>
